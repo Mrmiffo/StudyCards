@@ -1,9 +1,11 @@
 package studyCards;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class Utilities {
 	public static void saveCollection(CardCollection collection) {
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(collection.getName(), "UTF-8");
+			writer = new PrintWriter("savedCollections//"+collection.getName(), "UTF-8");
 			for (int i = 0; i < collection.size(); i++){
 				writer.println(collection.getCard(i).getQuestion());
 				writer.println(collection.getCard(i).getAnswer());
@@ -31,7 +33,7 @@ public class Utilities {
 	    BufferedReader br;
 	    
 		try {
-			br = new BufferedReader(new FileReader(collectionName));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream("savedCollections//"+collectionName),"UTF-8"));
 		    try {
 		        StringBuilder sb = new StringBuilder();
 		        String line = br.readLine();
@@ -61,6 +63,9 @@ public class Utilities {
 		    }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 	    return tempCollection;
@@ -71,7 +76,7 @@ public class Utilities {
 	    BufferedReader br;
 	    
 		try {
-			br = new BufferedReader(new FileReader("All collections"));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream("savedCollections//"+"All collections"),"UTF-8"));
 		    try {
 		        StringBuilder sb = new StringBuilder();
 		        String line = br.readLine();
@@ -92,7 +97,7 @@ public class Utilities {
 					e.printStackTrace();
 				}
 		    }
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
@@ -107,8 +112,11 @@ public class Utilities {
 	
 	public static void saveCollectionList(ArrayList<CardCollection> collections){
 		PrintWriter writer;
+		for (int i = 0; i < collections.size(); i++){
+			saveCollection(collections.get(i));
+		}
 		try {
-			writer = new PrintWriter("All collections", "UTF-8");
+			writer = new PrintWriter("savedCollections//"+"All collections", "UTF-8");
 			for (int i = 0; i < collections.size(); i++){
 				writer.println(collections.get(i).getName());
 			}
