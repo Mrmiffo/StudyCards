@@ -1,6 +1,6 @@
 package studyCards;
 
-public class Card {
+public class Card implements Cloneable{
 	private String question;
 	private String answer;
 	
@@ -32,5 +32,14 @@ public class Card {
 	@Override
 	public int hashCode(){
 		return question.hashCode() * 7;
+	}
+	
+	@Override
+	public Card clone(){
+		try {
+			return (Card)super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null; //Will not happen as Card implements cloneable.
+		}
 	}
 }
