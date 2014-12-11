@@ -11,6 +11,14 @@ public class CardCollection {
 		
 	}
 	
+	public CardCollection(){
+		
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public void addCard(Card cardToAdd){
 		collection.add(cardToAdd);
 	}
