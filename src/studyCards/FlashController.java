@@ -1,5 +1,7 @@
 package studyCards;
 
-public class FlashController {
+import java.util.ArrayList;
 
+public class FlashController {
+	ArrayList<CardCollection> collectionList;
 }

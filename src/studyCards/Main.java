@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 //		JFrame mainFrame = new JFrame("StudyCards");
 		
-		CardCollection test = new CardCollection();
+		CardCollection test = new CardCollection("Test collection");
 		System.out.println(test.getName());
 		test.addCard(new Card("Testfråga 1", "Testsvar 1"));
 		test.addCard(new Card("Testfråga 2", "Testsvar 2"));
@@ -34,8 +34,8 @@ public class Main {
 //			System.out.println(e);
 //		}
 		
-		Utilities.save(test);
-		CardCollection test2 = Utilities.load(test.getName());
+		Utilities.saveCollection(test);
+		CardCollection test2 = Utilities.loadCollection(test.getName());
 		
 		try {
 		System.out.println("Question 1: " +test2.getCard(0).getQuestion() + " Answer: "+ test2.getCard(0).getAnswer());

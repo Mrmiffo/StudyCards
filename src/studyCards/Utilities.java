@@ -6,10 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class Utilities {
 
-	public static void save(CardCollection collection) {
+	public static void saveCollection(CardCollection collection) {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(collection.getName(), "UTF-8");
@@ -23,7 +24,8 @@ public class Utilities {
 		}
 	}
 	
-	public static CardCollection load(String collectionName){
+	
+	public static CardCollection loadCollection(String collectionName){
 		CardCollection tempCollection = new CardCollection(collectionName);
 	    boolean needNewCard = true;
 	    BufferedReader br;
@@ -64,4 +66,55 @@ public class Utilities {
 	    return tempCollection;
 	}
 
+	public static ArrayList<CardCollection>  loadCollectionList(){
+		ArrayList<String> tempList = new ArrayList<String>();
+	    BufferedReader br;
+	    
+		try {
+			br = new BufferedReader(new FileReader("All collections"));
+		    try {
+		        StringBuilder sb = new StringBuilder();
+		        String line = br.readLine();
+
+		        while (line != null) {
+		            sb.append(line);
+		            tempList.add(line);
+
+		            line = br.readLine();
+		            
+		        }
+		    } catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+		        try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		ArrayList<CardCollection> tempColList = new ArrayList<CardCollection>();
+				
+		for (int i = 0; i < tempList.size();i++){
+			tempColList.add(loadCollection(tempList.get(i)));
+		}
+		return tempColList;
+		
+	}
+	
+	public static void saveCollectionList(ArrayList<CardCollection> collections){
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("All collections", "UTF-8");
+			for (int i = 0; i < collections.size(); i++){
+				writer.println(collections.get(i).getName());
+			}
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 }
