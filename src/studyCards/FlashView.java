@@ -2,14 +2,11 @@ package studyCards;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 
 
 
-import java.awt.Font;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -19,10 +16,8 @@ import java.io.FileNotFoundException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 public class FlashView extends JPanel implements PropertyChangeListener{
@@ -164,11 +159,6 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 			}
 		});
 	}
-
-	
-	
-
-
 
 	private void setupFlashPanel() {
 		qaLabel.setText("<html>Welcome to FlashCards! <br> Click here to show the first question!</html>");

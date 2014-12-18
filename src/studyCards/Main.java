@@ -9,7 +9,7 @@ public class Main {
 		FlashController testCont = new FlashController();
 		FlashView fwTest = new FlashView(testCont);
 		mainFrame.add(fwTest);
-		mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800,500);
 		mainFrame.setLocation(Utilities.getFrameAtCenterOfScreen(mainFrame.getWidth(), mainFrame.getHeight()));
 		mainFrame.setVisible(true);
