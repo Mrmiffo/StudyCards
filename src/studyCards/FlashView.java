@@ -41,19 +41,7 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 	private JPanel flashPanel = new JPanel();
 	private JLabel qaLabel = new JLabel();
 	
-	//Add card/collection Frame
-	private JFrame popUpFrame;
-	private JPanel popUpPanel;
-	private JPanel popUpButtonPanel;
-	private JPanel popUpLabelPanel;
-	private JPanel popUpTextPanel;
-	private JLabel label1 = new JLabel();
-	private JLabel label2 = new JLabel();
-	private JTextField text1 = new JTextField();
-	private JTextField text2 = new JTextField();
-	private JButton popUpAddCardButton = new JButton("Add");
-	private JButton popUpAddCollectionButton = new JButton("Add");
-	private JButton popUpCancelButton = new JButton("Cancel");
+
 	
 
 	
@@ -79,19 +67,41 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 		newCardButton.addActionListener( new ActionListener(){ 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCardPopUp();	
+				final TwoTextBoxPopUp tempPopUp = FlashFrameFactory.twoTextBoxPopUp("New Card", "Question: ", "", "Answer: ", "");
+				final Timer tempTimer = new Timer(50,null);
+				tempTimer.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (tempPopUp.getHasGivenAnswer() && !tempPopUp.getText1().equals("") && !tempPopUp.getText2().equals("")){
+							try {
+								controller.addCard(tempPopUp.getText1(), tempPopUp.getText2());
+							} catch (FileNotFoundException e2) {
+								FlashFrameFactory.errorPopUp("File not found", "There was an error saving the collection(s).", e2);
+							} catch (CardNotFoundException e2) {
+								FlashFrameFactory.errorPopUp("Card not found", "There was an error saving the collection(s).", e2);
+							} finally {
+								tempTimer.stop();
+							}
+						} else if (tempPopUp.getHasGivenAnswer()){
+							FlashFrameFactory.errorPopUp("Invalid question or answer", "Question and answer may not be empty.", null);
+							tempTimer.stop();
+						}
+					}
+				});
+				tempTimer.setRepeats(true);
+				tempTimer.start();
 			}
 		});
 		
 		removeCardButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final VerificationPopUp vPopUp = FlashFrameFactory.verificationPopUp("Remove card", "Are you sure you want to remove this card?");
+				final VerificationPopUp tempPopUp = FlashFrameFactory.verificationPopUp("Remove card", "Are you sure you want to remove this card?");
 				final Timer tempTimer = new Timer(50, null);
 				tempTimer.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (vPopUp.getHasGivenAnswer() && vPopUp.getAnswer()){
+						if (tempPopUp.getHasGivenAnswer() && tempPopUp.getAnswer()){
 							try {
 								controller.removeCard();
 							} catch (FileNotFoundException e1) {
@@ -100,7 +110,7 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 								FlashFrameFactory.errorPopUp("Card not found", "No card was removed as the card was not found.", e1);
 							}
 							tempTimer.stop();
-						} else if (vPopUp.getHasGivenAnswer()){
+						} else if (tempPopUp.getHasGivenAnswer()){
 							
 							tempTimer.stop();
 						}
@@ -115,60 +125,35 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 		
 		newCollectionButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				addCollectionPopUp();
-			}
-		});
-		
-		popUpAddCardButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!text1.getText().equals("") && !text2.getText().equals("")){
-					try {
-						controller.addCard(text1.getText(), text2.getText());
-						text1.setText("");
-						text2.setText("");
-						popUpFrame.setVisible(false);
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (CardNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				}
-			}
-		});
-		
-		popUpCancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				text1.setText("");
-				text2.setText("");
-				popUpFrame.setVisible(false);
-			}
-		});
-		
-		popUpAddCollectionButton.addActionListener(new ActionListener(){
-			@Override
 			public void actionPerformed(ActionEvent e){
-				if (!text1.getText().equals("")){
-					try {
-						controller.addCollection(text1.getText());
-						selectCollectionPane.addItem(text1.getText());
-						selectCollectionPane.setSelectedItem(text1.getText());
-						text1.setText("");
-						popUpFrame.setVisible(false);
-						addCardPopUp();
-					} catch (FileNotFoundException e1) {
-						text1.setText("");
-						FlashFrameFactory.errorPopUp("Incorrect file name error", "Incorrect file name. Please only use letters and numbers.", null);
-					} catch (CardNotFoundException e1) {
-						FlashFrameFactory.errorPopUp("Card not found exception", "Something went wrong when trying to save the cards", e1);
+				final OneTextBoxPopUp tempPopUp = FlashFrameFactory.oneTextBoxPopUp("Enter collection details", "Collection name: ", "");
+				final Timer tempTimer = new Timer(50,null);
+				tempTimer.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (tempPopUp.getHasGivenAnswer() && !tempPopUp.getText().equals("")){
+							try {
+								controller.addCollection(tempPopUp.getText());
+								selectCollectionPane.addItem(tempPopUp.getText());
+								selectCollectionPane.setSelectedItem(tempPopUp.getText());
+							} catch (FileNotFoundException e1) {
+								FlashFrameFactory.errorPopUp("Incorrect file name error", "Incorrect file name. Please only use letters and numbers.", null);
+							} catch (CardNotFoundException e1) {
+								FlashFrameFactory.errorPopUp("Card not found exception", "Something went wrong when trying to save the cards", e1);
+							} finally {
+								tempTimer.stop();
+							}
+		
+						} else if (tempPopUp.getHasGivenAnswer()){
+							FlashFrameFactory.errorPopUp("Invalid Collection name", "Collection name may not be empty", null);
+							tempTimer.stop();
+							
+						}
+						
 					}
+				});
 
-				}
 			}
 		});
 		
@@ -180,84 +165,9 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 		});
 	}
 
-	private void addCardPopUp() {
-		popUpFrame = new JFrame("Enter card details");
-		popUpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		popUpPanel = new JPanel();
-		popUpLabelPanel = new JPanel();
-		popUpTextPanel = new JPanel();
-		popUpButtonPanel = new JPanel();
-		
-		label1.setText("Question: ");
-		label2.setText("Answer: ");
-		text1.setText("");
-		text2.setText("");
-		label1.setFont(Resources.getLabelfont());	
-		label2.setFont(Resources.getLabelfont());
-		text1.setFont(Resources.getLabelfont());
-		text2.setFont(Resources.getLabelfont());
-		
-		popUpLabelPanel.setLayout(new GridLayout(2,1));
-		popUpLabelPanel.add(label1);
-		popUpLabelPanel.add(label2);
-
-		popUpTextPanel.setLayout(new GridLayout(2,1));
-		popUpTextPanel.add(text1);
-		popUpTextPanel.add(text2);
-		
-		popUpPanel.setLayout(new BorderLayout());
-		
-		popUpPanel.add(popUpLabelPanel, BorderLayout.WEST);
-		popUpPanel.add(popUpTextPanel,BorderLayout.CENTER);
-		
-		popUpButtonPanel.setLayout(new FlowLayout());
-		popUpButtonPanel.add(popUpAddCardButton);
-		popUpButtonPanel.add(popUpCancelButton);
-		
-		popUpFrame.setLayout(new BorderLayout());
-		popUpFrame.setSize(800,200);
-		popUpFrame.add(popUpPanel, BorderLayout.CENTER);
-		popUpFrame.add(popUpButtonPanel, BorderLayout.SOUTH);
-		popUpFrame.setVisible(true);
-		
-	}
 	
-	private void addCollectionPopUp() {
-		popUpFrame = new JFrame("Enter collection details");
-		popUpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		popUpPanel = new JPanel();
-		popUpLabelPanel = new JPanel();
-		popUpTextPanel = new JPanel();
-		popUpButtonPanel = new JPanel();
-		
-		label1.setText("Collection name: ");
-		text1.setText("");
-		label1.setFont(Resources.getLabelfont());	
-		text1.setFont(Resources.getLabelfont());
-		
-		popUpLabelPanel = new JPanel();
-		popUpLabelPanel.setLayout(new GridLayout(2,1));
-		popUpLabelPanel.add(label1);
+	
 
-		popUpTextPanel.setLayout(new GridLayout(2,1));
-		popUpTextPanel.add(text1);
-		
-		popUpPanel.setLayout(new BorderLayout());
-		
-		popUpPanel.add(popUpLabelPanel, BorderLayout.WEST);
-		popUpPanel.add(popUpTextPanel,BorderLayout.CENTER);
-		
-		popUpButtonPanel.setLayout(new FlowLayout());
-		popUpButtonPanel.add(popUpAddCollectionButton);
-		popUpButtonPanel.add(popUpCancelButton);
-		
-		popUpFrame.setLayout(new BorderLayout());
-		popUpFrame.setSize(800,200);
-		popUpFrame.add(popUpPanel, BorderLayout.CENTER);
-		popUpFrame.add(popUpButtonPanel, BorderLayout.SOUTH);
-		popUpFrame.setVisible(true);
-		
-	}
 
 
 	private void setupFlashPanel() {
@@ -287,7 +197,7 @@ public class FlashView extends JPanel implements PropertyChangeListener{
 			try {
 				qaLabel.setText(controller.getCardText());
 			} catch (NullPointerException e){
-				addCardPopUp();
+//				addCardPopUp();
 			} catch (CardNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

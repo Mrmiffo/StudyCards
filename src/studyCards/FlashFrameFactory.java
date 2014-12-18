@@ -33,6 +33,15 @@ public class FlashFrameFactory {
 	public static void errorPopUp(String name, String message, Exception e){
 		new ErrorPopUp(name, message, e);
 	}
+	
+	public static OneTextBoxPopUp oneTextBoxPopUp(String frameName, String nameBox, String boxText){
+		return new OneTextBoxPopUp(frameName, nameBox, boxText);
+	}
+
+	public static TwoTextBoxPopUp twoTextBoxPopUp(String frameName, String boxName1, String boxText1, String boxName2, String boxText2){
+		return new TwoTextBoxPopUp(frameName, boxName1, boxText1, boxName2, boxText2);
+	}
+
 }
 
 
