@@ -1,5 +1,6 @@
 package studyCards;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,23 +10,41 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Utilities {
+	private static int lengthOfTextLine = 30;
+	
+	public static int randomInt(int from, int too){
+		Random rand = new Random();
+		return rand.nextInt(too-from) + from;
+	}
 
-	public static void saveCollection(CardCollection collection) {
-		PrintWriter writer;
+	public static void saveCollectionList(ArrayList<CardCollection> collections) throws FileNotFoundException, CardNotFoundException{
+		PrintWriter writer1;
+		PrintWriter writer2;
 		try {
-			writer = new PrintWriter("savedCollections//"+collection.getName(), "UTF-8");
-			for (int i = 0; i < collection.size(); i++){
-				writer.println(collection.getCard(i).getQuestion());
-				writer.println(collection.getCard(i).getAnswer());
+			//Will first try to create new files for the collections.
+			for (int i = 0; i < collections.size(); i++){
+				writer2 = new PrintWriter("savedCollections//"+collections.get(i).getName(), "UTF-8");
+				for (int j = 0; j < collections.get(i).size(); j++){
+					writer2.println(collections.get(i).getCard(j).getQuestion());
+					writer2.println(collections.get(i).getCard(j).getAnswer());
+				}
+				writer2.close();
 			}
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException | CardNotFoundException e) {
+			//Once all files are created the files are inserted into the All collections file. If any error occur the old All collections will not be affected.
+			writer1 = new PrintWriter("savedCollections//"+"All collections", "UTF-8");
+			for (int i = 0; i < collections.size();i++){
+				writer1.println(collections.get(i).getName());
+			}
+			writer1.close();
+			
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 	public static CardCollection loadCollection(String collectionName){
 		CardCollection tempCollection = new CardCollection(collectionName);
@@ -35,12 +54,11 @@ public class Utilities {
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream("savedCollections//"+collectionName),"UTF-8"));
 		    try {
-		        StringBuilder sb = new StringBuilder();
+//		        StringBuilder sb = new StringBuilder();
 		        String line = br.readLine();
 
 		        while (line != null) {
-		            sb.append(line);
-		            
+//		            sb.append(line);
 		            if (needNewCard){
 		            	tempCollection.addCard(new Card());
 		            	tempCollection.getCard(0).setQuestion(line);
@@ -78,11 +96,11 @@ public class Utilities {
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream("savedCollections//"+"All collections"),"UTF-8"));
 		    try {
-		        StringBuilder sb = new StringBuilder();
+//		        StringBuilder sb = new StringBuilder();
 		        String line = br.readLine();
 
 		        while (line != null) {
-		            sb.append(line);
+//		            sb.append(line);
 		            tempList.add(line);
 
 		            line = br.readLine();
@@ -102,27 +120,52 @@ public class Utilities {
 		}
 
 		ArrayList<CardCollection> tempColList = new ArrayList<CardCollection>();
-				
 		for (int i = 0; i < tempList.size();i++){
-			tempColList.add(loadCollection(tempList.get(i)));
+				tempColList.add(loadCollection(tempList.get(i)));
 		}
 		return tempColList;
 		
 	}
 	
-	public static void saveCollectionList(ArrayList<CardCollection> collections){
-		PrintWriter writer;
-		for (int i = 0; i < collections.size(); i++){
-			saveCollection(collections.get(i));
-		}
-		try {
-			writer = new PrintWriter("savedCollections//"+"All collections", "UTF-8");
-			for (int i = 0; i < collections.size(); i++){
-				writer.println(collections.get(i).getName());
+
+
+	/**
+	 * Returns a HTML, center, formated string with line breaks at the interval given by lengthOfTextLine.
+	 * @param String the String to format to a line with line breaks.
+	 */
+	public static String stringToRBString(String str){
+		if (str == null){
+			return "";
+		} else if (str.length() < lengthOfTextLine){
+			return "<html><div style=\"text-align: center;\"><body>"+str+"</body></html>";
+		} else {
+			int spaceAt = str.substring(lengthOfTextLine).indexOf(" ");
+			if (spaceAt == -1){
+				return "<html><div style=\"text-align: center;\"><body>"+str+"</body></html>";
 			}
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
+			return "<html><div style=\"text-align: center;\"><body>" + str.substring(0, spaceAt+lengthOfTextLine+1) + "<br>" + stringToRBStringWrapper(str.substring(spaceAt+lengthOfTextLine+1));
 		}
+	}
+	
+	private static String stringToRBStringWrapper(String str){
+		if (str.length() < lengthOfTextLine){
+			return str+"</body></html>";
+		} else {
+			int spaceAt = str.substring(lengthOfTextLine).indexOf(" ");
+			if (spaceAt == -1){
+				return str+"</body></html>";
+			}
+			return str.substring(0, spaceAt + lengthOfTextLine +1) + "<br>" + stringToRBStringWrapper(str.substring(spaceAt+lengthOfTextLine+1));
+		}
+	}
+	
+	/**
+	 * Calculates a point for the upper left corner for a frame which can be used to set the frame at the center of the screen.
+	 * @param width of the frame.
+	 * @param height of the frame.
+	 * @return Point which should be the top left corner of the frame.
+	 */
+	public static Point getFrameAtCenterOfScreen(int width, int height){
+		return new Point(Resources.getScreenWidth()/2-(width/2),Resources.getScreenHeight()/2-(height/2));
 	}
 }

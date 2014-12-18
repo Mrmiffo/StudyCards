@@ -1,0 +1,10 @@
+Vad är en Eulerväg?
+En Eulerväg är en väg från punkt A->B där varje kant passeras exakt 1 gång.
+Vad är en ekvialensrelation?
+Reflexiv (ser sig själv), Symmetrisk (xRy -> yRx), Transitiv (xRy & yRz -> xRz)
+Vad är en Partiell ordning?
+En relation som är Reflexiv (xRx), Antisymmetrisk (xRy & yRx -> x=y), Transitiv (xRy & yRz -> xRz)
+Vad är ett Hassediagram?
+Relationsdiagram som man tagit bort loopar och genvägar och sedan tagit bort riktning och vridit så allt pekar uppåt.
+Vad är en eulercykel?
+Ett diagram som man kan kan går från en punkt och tillabaka genom att passera alla kanter exakt en gång.
