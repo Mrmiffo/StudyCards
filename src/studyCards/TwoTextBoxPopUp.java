@@ -11,7 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+/**
+ * The TwoTextBoxPopUp is a simple pop-up box with 2 input fields, an Add and a Cancel button. 
+ * @author Anton
+ *
+ */
 public class TwoTextBoxPopUp {
 	private JFrame frame;
 	private JPanel mainPanel;
@@ -22,6 +26,7 @@ public class TwoTextBoxPopUp {
 	private JLabel label2 = new JLabel();
 	private JTextField text1 = new JTextField();
 	private JTextField text2 = new JTextField();
+	//May need to rename this button and make sure caller specify the button name.
 	private JButton addButton = new JButton("Add");
 	private JButton cancelButton = new JButton("Cancel");
 	private boolean hasGivenAnswer;
@@ -71,8 +76,8 @@ public class TwoTextBoxPopUp {
 		}
 
 	private void setupActionListeners() {
+		//When user press add the hasGivenAnswer will be set to true and then hide the frame.
 		addButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				hasGivenAnswer = true;
@@ -83,7 +88,7 @@ public class TwoTextBoxPopUp {
 		});
 		
 		cancelButton.addActionListener(new ActionListener() {
-			
+			//If user press cancel the text boxes will be set as "" to remove any text given. Might have to be replaced by a cancel boolean.
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hasGivenAnswer = true;
@@ -95,15 +100,24 @@ public class TwoTextBoxPopUp {
 		});
 		
 	}
-	
+	/**
+	 * When user press any button this will be set to true, and the caller of the pop-up will know that user has given a response to be fetched.
+	 * @return
+	 */
 	public boolean getHasGivenAnswer(){
 		return hasGivenAnswer;
 	}
-	
+	/**
+	 * Returns the text in the first input box.
+	 * @return
+	 */
 	public String getText1(){
 		return text1.getText();
 	}
-	
+	/**
+	 * Returns the text in the second input box.
+	 * @return
+	 */
 	public String getText2(){
 		return text2.getText();
 	}

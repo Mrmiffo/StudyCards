@@ -4,13 +4,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * CardCollection is a collection of cards.
+ * @author Anton
+ *
+ */
 public class CardCollection {
 	private String name;
 	private ArrayList<Card> collection = new ArrayList<Card>();
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private Date createDate;
 	
+	/**
+	 * Main constructor, will create a collection with the given name.
+	 * @param name
+	 */
 	public CardCollection(String name){
 		createDate = new Date();
 		this.name = name;

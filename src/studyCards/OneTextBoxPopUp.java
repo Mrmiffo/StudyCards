@@ -11,7 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+/**
+ * OnTextBoxPopUp is a simple generic pop-up which can be modified by the caller to provided the expected text.
+ * @author Anton
+ *
+ */
 public class OneTextBoxPopUp {
 	private JFrame frame;
 	private JPanel mainPanel;
@@ -20,6 +24,7 @@ public class OneTextBoxPopUp {
 	private JPanel textPanel;
 	private JLabel label = new JLabel();
 	private JTextField text = new JTextField();
+	//May need to rename this button and make sure caller specify the button name.
 	private JButton addButton = new JButton("Add");
 	private JButton cancelButton = new JButton("Cancel");
 	private boolean hasGivenAnswer;
@@ -79,7 +84,7 @@ public class OneTextBoxPopUp {
 		});
 		
 		cancelButton.addActionListener(new ActionListener() {
-			
+			//If user press cancel the text will be set to "". Might have to be replaced with a cancel boolean
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hasGivenAnswer = true;
@@ -88,11 +93,17 @@ public class OneTextBoxPopUp {
 			}
 		});
 	}
-
+	/**
+	 * When user press any button this will be set to true, and the caller of the pop-up will know that user has given a response to be fetched.
+	 * @return
+	 */
 	public boolean getHasGivenAnswer(){
 		return hasGivenAnswer;
 	}
-	
+	/**
+	 * Returns the text in the input box.
+	 * @return
+	 */
 	public String getText(){
 		return text.getText();
 	}

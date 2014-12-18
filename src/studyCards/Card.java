@@ -1,14 +1,27 @@
 package studyCards;
 
+/**
+ * The basic cards in StudyCards. Only contain 2 strings and some getter/setter methods.
+ * @author Anton
+ *
+ */
 public class Card implements Cloneable{
 	private String question;
 	private String answer;
 	
+	/**
+	 * Constructor to create a simple card
+	 * @param question
+	 * @param answer
+	 */
 	public Card(String question, String answer){
 		this.question = question;
 		this.answer = answer;
 	}
 	
+	/**
+	 * Empty constructor used only by the Utilities when creating a new card to input the question and answer separately. May be removed by introducing a String array in the load method...
+	 */
 	public Card(){
 		
 	}

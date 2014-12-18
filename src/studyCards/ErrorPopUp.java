@@ -10,7 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+/**
+ * The error pop-up is a simple pop-up which will display a provided message and, if provided, the details of an error message.
+ * @author Anton
+ *
+ */
 public class ErrorPopUp {
 	private JFrame frame = new JFrame();
 	private JPanel labelPanel = new JPanel();
@@ -40,6 +44,7 @@ public class ErrorPopUp {
 		
 		buttonPanel.add(okButton);
 		labelPanel.add(messageText);
+		//If no exception is provided the error panel will be empty.
 		if (!(e == null)){
 			errorPanel.add(new JLabel(e.toString()));
 		}

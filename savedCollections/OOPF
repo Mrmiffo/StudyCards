@@ -1,0 +1,22 @@
+﻿Vad menas med The Principle of Least Astonishment?
+Om en klient tror att hen har ett objekt av typen SuperClass, men i själva verket har ett objekt av typen SubClass, ska hen inte bli förvånad när hen använder det objektet. Objekt av en subklass ska alltså bete sig precis som objekt av deras superklass beter sig. En subklass ska alltså inte ändra funkionaliteten den får från sin superklass. Däremot får en subklass gärna lägga till ytterligare funktionalitet. Detta hör ihop med The Liskov Substitution Principle.
+Förklara The Liskov Substitution Principle
+“If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behaviour of P is unchanged when o1 is substituted for o2 then S is a subtype of T.” Enklare uttryckt: du ska alltid kunna skicka in en subtyp i ett program som förväntar sig en supertyp, och allt ska fungera bra ändå. Till exempel ska du alltid kunna skicka in ett objekt av typen GermanShepherd i ett program som behöver en HerdingDog och allt ska fungera som vanligt, annars är inte GermanShepherd en äkta subtyp till HerdingDog.
+Vad är en Äkta subtyp?
+En subtyp som uppfyller Liskov Substitution Principle.
+Förklara Implementationsarv vs. Delegering
+Är man osäker på om implementationsarv eller delegering är bäst ska man använda delegering! (Implementationsarv är när en konkret klass ärver en annan klass. Delegering är när ett objekt har en referens till ett annat objekt som det hänvisar lämpliga förfrågningar till.) 
+Vad menas med Information Expert?
+Den som har tillgång till nödvändig information för att lösa en uppgift är bäst lämpa att lösa uppgiften.
+Vad betyder The Command-Query Separation Principle?
+En metod skall antingen vara en accessor eller en mutator, inte både och.
+Vad innebär det att kod på samma abstraktionsnivå?
+All kod i en metod skall exekvera på samma abstraktionsnivå. Inte blanda grundläggande statements med anrop till metoder med högnivå-funktionalitet.
+Förklara Template method
+Superklass med en konkret metod som använder sig av en abstrakt metod. Subklasser innehåller konkret implementering av den abstrakta metoden och gör på så vis olika saker vid anrop av den konkreta metoden i superklassen.
+Vad är Faktorisering?
+Hitta upprepade kodavsnitt. Bryt ut dem och lägg i en återanvändbar komponent.
+Vad är Strategy?
+Flera klasser som implementerar samma strategiinterface men med olika metodkroppar för interfacets metoder. Skapar objekt av dessa klasser och använder objektens metoder för att göra olika saker.
+Vad är en Singleton?
+Privat konstruktor och statisk instans av Singleton i sig själv samt en statisk metod getInstance() gör att det bara finns en instans av singleton i hela programmet. getInstance måste vara trådsäker (public static synchronized getInstance(){...}).
