@@ -71,6 +71,7 @@ public class TwoTextBoxPopUp {
 			frame.setSize(800,200);
 			frame.add(mainPanel, BorderLayout.CENTER);
 			frame.add(buttonPanel, BorderLayout.SOUTH);
+			frame.setLocation(Utilities.getFrameAtCenterOfScreen(frame.getWidth(), frame.getHeight()));
 			frame.setVisible(true);
 			
 		}

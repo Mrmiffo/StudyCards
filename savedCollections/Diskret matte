@@ -1,10 +1,99 @@
-Vad är en Eulerväg?
+﻿Vad är en Eulerväg?
 En Eulerväg är en väg från punkt A->B där varje kant passeras exakt 1 gång.
 Vad är en ekvialensrelation?
-Reflexiv (ser sig själv), Symmetrisk (xRy -> yRx), Transitiv (xRy & yRz -> xRz)
+Reflexiv (xRx), Symmetrisk (xRy -> yRx), Transitiv (xRy & yRz -> xRz)
 Vad är en Partiell ordning?
 En relation som är Reflexiv (xRx), Antisymmetrisk (xRy & yRx -> x=y), Transitiv (xRy & yRz -> xRz)
 Vad är ett Hassediagram?
 Relationsdiagram som man tagit bort loopar och genvägar och sedan tagit bort riktning och vridit så allt pekar uppåt.
 Vad är en eulercykel?
 Ett diagram som man kan kan går från en punkt och tillabaka genom att passera alla kanter exakt en gång.
+Vad är en utsaga?
+Påståenden som är antingen sanna eller falska men inte både och. Ex P: Peter har skägg. Ex på påstående som INTE är en utsaga är "Var är jag?" och "Matematik är roligt".
+Vad är Konjunktion?
+And p ^ Q
+Vad är Disjunktion?
+Or p \/ Q
+Vad är negation?
+Not !P
+Vad är Implikation?
+Medför att P --> Q. Innebär att P medför/implicerar Q om P är sann. Om P är falsk säger det inget om Q.
+Vad är Ekvialens?
+Dubbelriktad implikation, P<-->Q. Innebär att P och Q har samma sanningsvärde.
+Tautologi
+En logisk formel som alltid är sann, ex p \/ !q
+Logisk ekvialens
+Två utsagor P och Q som alltid har samma sanningsvärde.
+Vad är ett argument?
+Ett antal utsagor, hypoteser eller förutsättningar, samt en slutsats (ochså en utsaga). Ex utsagorna U1, U2 och U3 ger U1 ^ U2 | U3
+Hur bevisar man ett argument?
+Lättast är att motbevisa med exempel, ex om U1 och U2 --> U3, sätt U3 till sann, och försök finna tillfällen då U2 eller U3 är falska. Kan även göra en sanningstabell.
+Logisk implikation
+En implikation som omöjligen kan ha olika sanningsvärden. I p --> q kan P vara sann men Q är falsk vilket gör implikationen falsk, men i logisk implikation p => q kan inte p vara sann och q vara falsk. Ex p: a <= 10, q <= 5 är en logisk implikation.
+Vad är ett predikat?
+En utsaga vars sanningsvärde beror på en eller flera variabler.
+Vilka är de två Kvantorerna?
+"För alla" kvantorn (upp-och-nervänt A), "Det finns" (omvänt E)
+Z
+Alla heltal, Z+ är alla positiva heltal ink 0.
+N
+Alla Naturliga tal, dvs alla heltal från 0 och uppåt.
+R
+Reella tal, decimaltal
+C
+Komplexa tal, talpar. ex Z = a + bi
+Q
+Rationella tal, bråktal (division).
+Hur lång är en kvantors räckvidd?
+Närmsta predikatet, kan dock sättas inom [] eller () för att få in ett längre predikat. E.x Ax:[P(x) ^ Q(x)] eller ExAy:Q(x,y)
+Vad är ett Eulerdiagram?
+Visar argument som cirklar i ett universum.
+deMorgan
+!(P ^ Q) = !P \/ !Q, !(P \/ Q) = !P ^ !Q (ta bort negerad parantes och byt and<-->or).
+Kontrapositiv
+p-->Q = !q-->!P. P ger Q är samma sak som icke Q ger Icke P
+Kommutativitet
+P ^ Q = Q ^ P, P \/ Q = Q \/ P. Man kan byta plats på påståenden.
+Distributivitet
+P \/ (Q ^ R) = (P \/ Q) ^ (P \/ R). Man kan sätta in påstående i parantes.
+Snitt
+Mängden där A och B möts skrivs A n B
+Delmängd
+A del av B (alla element i A finns i B)
+Union A och/eller B, A u B
+Mängddifferens
+A men inte B, A \ B
+Komplement
+Hela U förutom A, Ac ("A upphöjt i c"), U \ A
+Symmetrisk mängddifferens 
+A*trekant*B, (A\B) ^ (B\A)
+Identitiet (mängdlära)
+A n U = A. Hela mängden snitt A = A.
+Associativitet (Mängdlära)
+(A u B) u C = A u (B u C). Kan flytta paranteserna.
+deMorgan (mängdlära)
+(A n B)c = Ac u Bc. Vid komplement kan man flytta in/ut inversen genom att byta tecken. A \ B = A n Bc. A men inte B = A möter B komplement (U \ B).
+Potensmängd
+Mängden av tomma mängden + alla unika elementkombinationer, ex A = {1,2,3} get P(A) = {*tomma mängden*, {1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}}.
+Antal element i potensmängden är?
+|P(A)| = 2^n där N är |A| (antalet element i A)
+Venndiagram
+Cirkeldiagram som illustrerar hur ex en union ser ut.
+Definitionsmängd
+Utgångsvärdena som är möjliga för en funktion. Ex alla naturliga tal
+Målmängd
+Alla möjliga resultat av en funktion. Ex alla rationella tal.
+Injektivitet 
+Alla unika punkter i A speglas av en unik punkt i B
+Surjektivitet
+Det finns lika många punkter i B som det finns i A.
+Bijektivitet
+En funktion som är både Injektiv och Surjektiv, dvs man kan gå från A -> B -> A
+Invers av en funktion
+För att ha en invers så måste funktionen vara bijektiv. Funktionen f(x) = y har inversen x = f-1(y). Dvs bryt ut X ur f(x)
+PQ-formeln
+x^2+px+q=0 --> x = -p/2 +\-ROT((p/2)^2-q)
+Sammansatta funktioner
+h(x) = g(f(x)), GoF (G of F): A->f(a)->B->g(f(a))->C
+Operatorer
+EX ^, \/, u, n (A u B, A n B), +, -, *. Unär operator är A --> A, Binär operator är AxA -> A. f: A^n -> kallas för en n-operator. Dvs A^2 är en binär operator.
